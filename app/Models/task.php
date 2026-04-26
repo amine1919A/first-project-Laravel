@@ -12,6 +12,12 @@ class Task extends Model
  'title',
  'description',
  'completed',
+ 'user_id', // Ajouter user_id
  ];
+ public function user()
+ {
+    return $this->belongsTo(User::class);
+ }
+
 }
 

@@ -4,48 +4,51 @@
 
 @section('content')
 
-<div class="card shadow-sm">
-    <div class="card-header bg-warning">
-        <h4 class="mb-0">Modifier tâche</h4>
-    </div>
+<div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow">
 
-    <div class="card-body">
+    <h2 class="text-xl font-bold mb-4 text-yellow-600">
+        Modifier tâche
+    </h2>
 
-        <form action="{{ route('tasks.update', $task) }}" method="POST">
-            @csrf
-            @method('PUT')
+    <form action="{{ route('tasks.update', $task) }}" method="POST">
+        @csrf
+        @method('PUT')
 
-            <div class="mb-3">
-                <label class="form-label">Titre *</label>
+        <div class="mb-4">
+            <label class="block mb-1 font-medium">Titre *</label>
 
-                <input type="text" name="title"
-                       class="form-control"
-                       value="{{ old('title', $task->title) }}">
-            </div>
+            <input type="text" name="title"
+                   value="{{ old('title', $task->title) }}"
+                   class="w-full border rounded px-3 py-2">
+        </div>
 
-            <div class="mb-3">
-                <label class="form-label">Description</label>
+        <div class="mb-4">
+            <label class="block mb-1 font-medium">Description</label>
 
-                <textarea name="description" class="form-control" rows="4">
-                    {{ old('description', $task->description) }}
-                </textarea>
-            </div>
+            <textarea name="description"
+                      class="w-full border rounded px-3 py-2">{{ old('description', $task->description) }}</textarea>
+        </div>
 
-            <div class="form-check mb-3">
-                <input type="checkbox" name="completed" class="form-check-input"
-                       {{ $task->completed ? 'checked' : '' }}>
+        <div class="mb-4 flex items-center gap-2">
+            <input type="checkbox" name="completed"
+                   {{ $task->completed ? 'checked' : '' }}>
 
-                <label class="form-check-label">
-                    Marquer comme terminée
-                </label>
-            </div>
+            <label>Marquer comme terminée</label>
+        </div>
 
-            <button class="btn btn-primary">Mettre à jour</button>
-            <a href="{{ route('tasks.index') }}" class="btn btn-secondary">Annuler</a>
+        <div class="flex gap-2">
+            <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+                Mettre à jour
+            </button>
 
-        </form>
+            <a href="{{ route('tasks.index') }}"
+               class="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded">
+                Annuler
+            </a>
+        </div>
 
-    </div>
+    </form>
+
 </div>
 
 @endsection

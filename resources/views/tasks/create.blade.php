@@ -4,40 +4,47 @@
 
 @section('content')
 
-<div class="card shadow-sm">
-    <div class="card-header bg-primary text-white">
-        <h4 class="mb-0">Nouvelle tâche</h4>
-    </div>
+<div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow">
 
-    <div class="card-body">
+    <h2 class="text-xl font-bold mb-4 text-blue-600">
+        Nouvelle tâche
+    </h2>
 
-        <form action="{{ route('tasks.store') }}" method="POST">
-            @csrf
+    <form action="{{ route('tasks.store') }}" method="POST">
+        @csrf
 
-            <div class="mb-3">
-                <label class="form-label">Titre *</label>
+        <div class="mb-4">
+            <label class="block mb-1 font-medium">Titre *</label>
 
-                <input type="text" name="title"
-                       class="form-control @error('title') is-invalid @enderror"
-                       value="{{ old('title') }}">
+            <input type="text" name="title"
+                   value="{{ old('title') }}"
+                   class="w-full border rounded px-3 py-2 focus:ring focus:ring-blue-200">
 
-                @error('title')
-                <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
+            @error('title')
+                <p class="text-red-500 text-sm">{{ $message }}</p>
+            @enderror
+        </div>
 
-            <div class="mb-3">
-                <label class="form-label">Description</label>
+        <div class="mb-4">
+            <label class="block mb-1 font-medium">Description</label>
 
-                <textarea name="description" class="form-control" rows="4">{{ old('description') }}</textarea>
-            </div>
+            <textarea name="description"
+                      class="w-full border rounded px-3 py-2">{{ old('description') }}</textarea>
+        </div>
 
-            <button class="btn btn-success">Enregistrer</button>
-            <a href="{{ route('tasks.index') }}" class="btn btn-secondary">Annuler</a>
+        <div class="flex gap-2">
+            <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
+                Enregistrer
+            </button>
 
-        </form>
+            <a href="{{ route('tasks.index') }}"
+               class="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded">
+                Annuler
+            </a>
+        </div>
 
-    </div>
+    </form>
+
 </div>
 
 @endsection

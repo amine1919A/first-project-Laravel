@@ -4,58 +4,70 @@
 
 @section('content')
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h2>Mes Tâches <span class="badge bg-primary">{{ $tasks->count() }}</span></h2>
+<div class="max-w-4xl mx-auto">
 
-    <a href="{{ route('tasks.create') }}" class="btn btn-success">
-        + Nouvelle tâche
-    </a>
-</div>
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold">
+            Mes Tâches
+            <span class="bg-blue-500 text-white px-2 py-1 rounded text-sm">
+                {{ $tasks->count() }}
+            </span>
+        </h2>
 
-@forelse($tasks as $task)
+        <a href="{{ route('tasks.create') }}"
+           class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded shadow">
+            + Nouvelle tâche
+        </a>
+    </div>
 
-<div class="card mb-3 shadow-sm border-0">
-    <div class="card-body">
+    @forelse($tasks as $task)
 
-        <div class="d-flex justify-content-between">
+    <div class="bg-white p-4 rounded-lg shadow mb-3 flex justify-between items-center">
 
-            <div>
-                <h5 class="{{ $task->completed ? 'text-decoration-line-through text-muted' : '' }}">
-                    {{ $task->title }}
-                </h5>
+        <div>
+            <h5 class="text-lg font-semibold {{ $task->completed ? 'line-through text-gray-400' : '' }}">
+                {{ $task->title }}
+            </h5>
 
-                <p class="text-muted mb-0">
-                    {{ $task->description }}
-                </p>
-            </div>
+            <p class="text-gray-500">
+                {{ $task->description }}
+            </p>
+        </div>
 
-            <div class="d-flex gap-2">
+        <div class="flex gap-2">
 
-                <a href="{{ route('tasks.edit', $task) }}" class="btn btn-warning btn-sm">
+            @can('update', $task)
+                <a href="{{ route('tasks.edit', $task) }}"
+                   class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded">
                     Modifier
                 </a>
+            @endcan
 
+            @can('delete', $task)
                 <form action="{{ route('tasks.destroy', $task) }}" method="POST">
                     @csrf
                     @method('DELETE')
 
-                    <button class="btn btn-danger btn-sm"
+                    <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
                             onclick="return confirm('Supprimer cette tâche ?')">
                         Supprimer
                     </button>
                 </form>
-
-            </div>
+            @endcan
 
         </div>
 
     </div>
-</div>
 
-@empty
-<div class="alert alert-info">
-    Aucune tâche. <a href="{{ route('tasks.create') }}">Créer votre première tâche</a>
+    @empty
+    <div class="bg-blue-100 text-blue-700 p-4 rounded">
+        Aucune tâche.
+        <a href="{{ route('tasks.create') }}" class="underline">
+            Créer votre première tâche
+        </a>
+    </div>
+    @endforelse
+
 </div>
-@endforelse
 
 @endsection
