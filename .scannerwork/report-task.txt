@@ -1,0 +1,7 @@
+organization=amine1919a
+projectKey=laravel-first-project
+serverUrl=https://sonarcloud.io
+serverVersion=8.0.0.86952
+dashboardUrl=https://sonarcloud.io/dashboard?id=laravel-first-project
+ceTaskId=AZ4HUmME3baiznEAb2rL
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AZ4HUmME3baiznEAb2rL
